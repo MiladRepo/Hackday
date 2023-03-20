@@ -6,7 +6,7 @@ namespace Hackday.Api
         public int Id { get; set; }
         public required string Name { get; set; }
         public required string Location { get; set; }
-        // [JsonIgnore] maybe use it
+        [JsonIgnore]
         public virtual Site? Site {get;set;}
     }
 }
