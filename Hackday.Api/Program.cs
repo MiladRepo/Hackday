@@ -6,7 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<HackContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("HackContext") ?? throw new InvalidOperationException("Connection string 'HackContext' not found.")));
+            options.UseCosmos(
+                "https://canine.documents.azure.com:443",
+                "1TGqrFcVlfYh0C2l7neBQQsQ2yN8xJ0dmO1P0zf7eZszfMxpN5Px6GuMarvHTAY5F6D7DrUI0w2cACDb04rv2g==",
+                "CanineDB"
+            ));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -14,7 +18,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-    app.UseCors(x=> x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
